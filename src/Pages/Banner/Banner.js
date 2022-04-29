@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Chart = () => {
+const Banner = () => {
     return (
         <div>
-            <h1>Chart</h1>
+            <h1>Banner</h1>
         </div>
     );
 };
 
-export default Chart;
+export default Banner;
