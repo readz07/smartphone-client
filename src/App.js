@@ -8,6 +8,7 @@ import Blog from './Pages/Blog/Blog';
 import SignUp from './Pages/SignUp/SignUp';
 import SignIn from './Pages/SignIn/SignIn';
 import NotFound from './Pages/NotFound/NotFound';
+import AddProduct from './Pages/AddProduct/AddProduct';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home></Home>} />
         <Route path="/home" element={<Home></Home>} />
         <Route path="/manageinventory" element={<ManageInventory></ManageInventory>} />
+        <Route path="/addproduct" element={<AddProduct></AddProduct>} />
         <Route path="/productdetail" element={<ProductDetail></ProductDetail>} />
         <Route path="/blog" element={<Blog></Blog>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
