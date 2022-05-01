@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis } from 'recharts';
 import useProductsData from '../../Hooks/useProductsData';
 
 const Chart = () => {
-    const [products, setProducts] = useProductsData([])
+    const [products] = useProductsData([])
     return (
 
         <Container>
@@ -21,7 +20,7 @@ const Chart = () => {
                 <Col>
                     <BarChart width={530} height={250} data={products}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey={"name"} />
+                        <XAxis dataKey={"supplier"} />
                         <YAxis />
                         <Tooltip />
                         <Legend />

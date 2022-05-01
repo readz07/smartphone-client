@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, Form, FormControl, Nav, Navbar} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Logo from '../../../images/logo.svg'
 const Header = () => {
@@ -19,17 +19,7 @@ const Header = () => {
                             <Nav.Link as={Link} to="/manageinventory">Manage Inventory</Nav.Link>
                             <Nav.Link as={Link} to="/addproduct">Add Product</Nav.Link>
                             <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
-                            <NavDropdown title="Link" id="navbarScrollingDropdown">
-                                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-                                    Something else here
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Link href="#" disabled>
-                                Link
-                            </Nav.Link>
+                            
                         </Nav>
                         <Form className="d-flex">
                             <FormControl

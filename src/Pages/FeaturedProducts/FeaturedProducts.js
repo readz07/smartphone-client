@@ -4,7 +4,7 @@ import useProductsData from '../../Hooks/useProductsData';
 import SingleProduct from '../SingleProduct/SingleProduct';
 
 const FeaturedProducts = () => {
-    const [products, setProducts] = useProductsData([])
+    const [products] = useProductsData([])
     return (
         <div>
             <Container className='my-5'>
