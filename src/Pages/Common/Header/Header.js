@@ -5,9 +5,9 @@ import Logo from '../../../images/logo.svg'
 const Header = () => {
     return (
         <div>
-            <Navbar bg="light" expand="lg" sticky='top'>
+            <Navbar bg="light" expand="lg">
                 <Container fluid>
-                    <Navbar.Brand as={Link} to="/"><img src={Logo} alt="logo" className='d-block' style={{height:'24px'}} /></Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/"><img src={Logo} alt="logo" style={{height:'24px'}} /></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
