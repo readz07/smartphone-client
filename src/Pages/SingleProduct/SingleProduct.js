@@ -11,6 +11,8 @@ const SingleProduct = ({product}) => {
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text>{description.slice(0,50)}</Card.Text>
+                    <Card.Text>{price}</Card.Text>
+                    <Card.Text>{quantity}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
                     <small className="text-muted"><Button className='btn-lg'>Show Detail</Button></small>
