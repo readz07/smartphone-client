@@ -1,31 +1,60 @@
 import React from 'react';
-import { Button, ButtonGroup, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import GoogleIcon from '../../images/sigin-icons/google.ico'
-import FacebookIcon from '../../images/sigin-icons/facebook.ico'
-import TwitterIcon from '../../images/sigin-icons/twitter.ico'
+import { Button, Form } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
+import SocialLogin from "../SocialLogin/SocialLogin"
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 const SignIn = () => {
-    const navigate = useNavigate();
+
+    const navigate = useNavigate();    
+    let location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+    const handleUserSignIn = event =>{
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password =event.target.password.value;
+        signInWithEmailAndPassword(email, password)
+    }
+    
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+            </div>
+        );
+    }
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+    if (user) {
+        navigate  (from, {replace: true});
+    }
     const handleSignUp = () => {
         navigate('/signup')
     }
     return (
         <div className='container mx-auto col-md-6 mt-5 mb-5'>
             <h1>Sign In Here</h1>
-            <Form>
+            <Form onSubmit={handleUserSignIn}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />                    
+                    <Form.Control type="email" name='email' placeholder="Enter email" required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control type="password" name='password' placeholder="Password" required/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Accept Terms and Conditions" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" >
                     Sign In
                 </Button>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -36,13 +65,9 @@ const SignIn = () => {
                 <hr />
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>
-                        
+
                         Or Use<br /><br />
-                        <ButtonGroup size="md" className="mb-2">
-                            <Button variant='danger'><img src={GoogleIcon} alt="google icon" style={{height:'24px'}}/> Google</Button>
-                            <Button variant='primary'><img src={FacebookIcon} alt="facebook icon" style={{height:'24px'}}/> Facebook</Button>
-                            <Button variant="info text-white"><img src={TwitterIcon} alt="twitter icon" style={{height:'24px'}}/> Twitter</Button>
-                        </ButtonGroup>
+                        <SocialLogin></SocialLogin>
                     </Form.Label>
                 </Form.Group>
             </Form>

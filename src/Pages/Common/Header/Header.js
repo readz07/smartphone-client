@@ -1,8 +1,15 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Button, Container, Form, FormControl, Nav, Navbar} from 'react-bootstrap';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../../firebase.init';
 import Logo from '../../../images/logo.svg'
 const Header = () => {
+    const [user] = useAuthState(auth)
+    const handleSignOut=()=>{
+        signOut(auth)
+    }
     return (
         <div>
             <Navbar bg="light" expand="lg">
@@ -30,7 +37,10 @@ const Header = () => {
                             />
                             <Button variant="outline-success">Search</Button>
                         </Form>
-                        <Nav.Link as={Link} to="/signin">Sign In</Nav.Link>
+                        {user? <Button onClick={handleSignOut} className="btn btn-warning ps-2 pe-2 text-white mx-2">Sign Out</Button>:
+                            <Nav.Link as={Link} to="/signin">Sign In</Nav.Link>
+                        }
+                        
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

@@ -2,12 +2,12 @@ import React from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const SingleProduct = ({ product }) => {
+const ManageSingleProduct = ({product}) => {
     const navigate = useNavigate();
-    const { id, name, description, image, price, quantity, supplier } = product
-    const handleProductStock = (id, product) => {
-        navigate(`/manageinventory/${id}`)
-
+    const{id, name, description, image, price, quantity, supplier}=product
+    const handleProductStock = (id, product) =>{
+        navigate (`/manageinventory/${id}`)
+        
     }
     return (
         <Col md={3} className="mx-auto">
@@ -16,17 +16,16 @@ const SingleProduct = ({ product }) => {
                 <Card.Header>{supplier}</Card.Header>
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
-                    <Card.Text>{description.slice(0, 50)}</Card.Text>
-                    <Card.Text>Price: ${price}</Card.Text>
-                    <Card.Text>Stock Quantity: {quantity}</Card.Text>
+                    <Card.Text>{description.slice(0,50)}</Card.Text>
+                    <Card.Header>Price: ${price}</Card.Header>
+                    <Card.Header>Stock Quantity: {quantity}</Card.Header>
                 </Card.Body>
                 <Card.Footer className="d-grid">
-                    <Button onClick={() => handleProductStock(id, product)} className='btn-md ps-5 pe-5 fluid'>Manage Stock</Button>
+                    <Button className='btn-danger btn-md ps-5 pe-5'>Delete Item</Button>
                 </Card.Footer>
             </Card>
         </Col>
-
     );
 };
 
-export default SingleProduct;
+export default ManageSingleProduct;

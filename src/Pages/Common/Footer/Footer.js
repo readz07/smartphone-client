@@ -17,7 +17,7 @@ const Footer = () => {
                 </Col>
                 <Col>
                     <ListGroup>
-                        <ListGroup.Item className='border-0'><h5>General Info</h5></ListGroup.Item>                        
+                        <ListGroup.Item className='border-0'><h5>Insights</h5></ListGroup.Item>                        
                         <ListGroup.Item className='border-0'><Link to="/blog">Blog</Link></ListGroup.Item>                       
                         <ListGroup.Item className='border-0'><Link to="/signin">Sign In</Link></ListGroup.Item>                       
                         <ListGroup.Item className='border-0'><Link to="/signup">Sig Up</Link></ListGroup.Item>                                            
@@ -25,7 +25,7 @@ const Footer = () => {
                 </Col>
                 <Col>
                     <ListGroup>
-                        <ListGroup.Item className='border-0'><h5>Quick Links</h5></ListGroup.Item>                        
+                        <ListGroup.Item className='border-0'><h5>General Info</h5></ListGroup.Item>                        
                         <ListGroup.Item className='border-0'><span>Copyright &copy;</span></ListGroup.Item>                       
                         <ListGroup.Item className='border-0'>Privacy Policy</ListGroup.Item>                       
                         <ListGroup.Item className='border-0'>Terms and Conditions</ListGroup.Item>                                            

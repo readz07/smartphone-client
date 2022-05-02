@@ -9,7 +9,7 @@ const FeaturedProducts = () => {
         <div>
             <Container className='my-5'>
                 <Row>
-                    <Col><h4>Porduct Inventory</h4></Col>
+                    <Col><h4>Featured Products</h4></Col>
 
                 </Row>
                 <Row>

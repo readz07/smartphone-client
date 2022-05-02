@@ -1,22 +1,54 @@
 import React from 'react';
-import { Button, ButtonGroup, Form } from 'react-bootstrap';
-import GoogleIcon from '../../images/sigin-icons/google.ico'
-import FacebookIcon from '../../images/sigin-icons/facebook.ico'
-import TwitterIcon from '../../images/sigin-icons/twitter.ico'
+import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const SignUp = () => {
     const navigate = useNavigate();
     const handleSignIn = () => {
         navigate('/signin')
     }
+    
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const handleCreateUser = event =>{
+        event.preventDefault();
+        const email = event.target.email.value
+        const password = event.target.password.value;
+        console.log(email, password)
+        createUserWithEmailAndPassword(email, password)
+    }
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+            </div>
+        );
+    }
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+    if (user) {
+        return (
+            <div>
+                <p>Registered User: {user.email}</p>
+            </div>
+        );
+    }
+
     return (
         <div className='container mx-auto col-md-6 mt-5 mb-5'>
             <h1>Sign Up Here</h1>
-            <Form>
+            <Form onSubmit={handleCreateUser}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control type="email" name="email" placeholder="Enter email" required/>
                     <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                     </Form.Text>
@@ -24,7 +56,7 @@ const SignUp = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control type="password" name="password" placeholder="Password" required/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Check me out" />
@@ -40,13 +72,9 @@ const SignUp = () => {
                 <hr />
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>
-                        
+
                         Or Use<br /><br />
-                        <ButtonGroup size="md" className="mb-2">
-                            <Button variant='danger'><img src={GoogleIcon} alt="google icon" style={{height:'24px'}}/> Google</Button>
-                            <Button variant='primary'><img src={FacebookIcon} alt="facebook icon" style={{height:'24px'}}/> Facebook</Button>
-                            <Button variant="info text-white"><img src={TwitterIcon} alt="twitter icon" style={{height:'24px'}}/> Twitter</Button>
-                        </ButtonGroup>
+                        <SocialLogin></SocialLogin>
                     </Form.Label>
                 </Form.Group>
             </Form>
