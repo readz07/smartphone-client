@@ -5,6 +5,7 @@ import useProductsData from '../../Hooks/useProductsData';
 
 const Chart = () => {
     const [products] = useProductsData([])
+    
     return (
 
         <Container>

@@ -9,7 +9,7 @@ const ManageInventory = () => {
     const navigateToAddItem= ()=>{
         navigate('/addproduct')
     }
-    console.log(products)
+    
     return (
         <div>
             <Container className='my-5'>
@@ -24,7 +24,7 @@ const ManageInventory = () => {
                 </Row>
                 <Row>
                     <CardGroup className='gap-5'>
-                        {products.map(product => <ManageSingleProduct product={product} key={product.id}></ManageSingleProduct>)}
+                        {products.map(product => <ManageSingleProduct product={product} key={product._id}></ManageSingleProduct>)}
                     </CardGroup>
                 </Row>
             </Container>

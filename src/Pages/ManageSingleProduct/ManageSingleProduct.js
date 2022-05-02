@@ -1,13 +1,20 @@
 import React from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import useProductsData from '../../Hooks/useProductsData';
 
 const ManageSingleProduct = ({product}) => {
-    const navigate = useNavigate();
-    const{id, name, description, image, price, quantity, supplier}=product
-    const handleProductStock = (id, product) =>{
-        navigate (`/manageinventory/${id}`)
-        
+    const [products, setProducts] = useProductsData([])
+    const{_id, name, description, image, price, quantity, supplier}=product
+    const handleDeleteProduct = id =>{
+        const proceed = window.confirm('Are you sure to delete');
+        if(proceed){
+            const url = `http://localhost:5000/products/${id}`
+            fetch(url, 
+            {method:"DELETE"}
+            )
+            .then(res=>res.json())
+            .then(data=>setProducts(data))
+        }
     }
     return (
         <Col md={3} className="mx-auto">
@@ -21,7 +28,7 @@ const ManageSingleProduct = ({product}) => {
                     <Card.Header>Stock Quantity: {quantity}</Card.Header>
                 </Card.Body>
                 <Card.Footer className="d-grid">
-                    <Button className='btn-danger btn-md ps-5 pe-5'>Delete Item</Button>
+                    <Button onClick={()=>handleDeleteProduct(_id)} className='btn-danger btn-md ps-5 pe-5'>Delete Item</Button>
                 </Card.Footer>
             </Card>
         </Col>

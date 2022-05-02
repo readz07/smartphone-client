@@ -18,7 +18,7 @@ const FeaturedProducts = () => {
                 </Row>
                 <Row>
                     <CardGroup className='gap-5'>
-                        {products.slice(0, 6).map(product => <SingleProduct product={product} key={product.id}></SingleProduct>)}
+                        {products.slice(0, 6).map(product => <SingleProduct product={product} key={product._id}></SingleProduct>)}
                     </CardGroup>
                 </Row>
             </Container>
