@@ -16,7 +16,6 @@ const ManageInventory = () => {
                 <Row>
                     <Col><h4>Manage Inventories</h4></Col>
                     <Col><Button onClick={navigateToAddItem} className="btn-primary btn-md pe-5 ps-5 float-end">Add New Product</Button></Col>
-
                 </Row>
                 <Row>
                     <Col><hr /></Col>

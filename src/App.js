@@ -29,7 +29,7 @@ function App() {
           </RequireAuth>
         } />
         <Route path="/productdetail" element={<ProductDetail></ProductDetail>} />
-        <Route path="/manageinventory/:productId" element={
+        <Route path="/productdetail/:productId" element={
           <RequireAuth>
             <ProductDetail></ProductDetail>
           </RequireAuth>
