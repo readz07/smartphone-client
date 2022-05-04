@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
 import useProductsData from '../../Hooks/useProductsData';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ManageSingleProduct = ({product}) => {
     const [products, setProducts] = useProductsData([])
     const{_id, name, description, image, price, quantity, supplier}=product
@@ -14,6 +15,7 @@ const ManageSingleProduct = ({product}) => {
             )
             .then(res=>res.json())
             .then(data=>setProducts(data))
+            toast("Product has been deleted")
         }
     }
     return (
@@ -30,6 +32,7 @@ const ManageSingleProduct = ({product}) => {
                 <Card.Footer className="d-grid">
                     <Button onClick={()=>handleDeleteProduct(_id)} className='btn-danger btn-md ps-5 pe-5'>Delete Item</Button>
                 </Card.Footer>
+                <ToastContainer></ToastContainer>
             </Card>
         </Col>
     );

@@ -4,6 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from "../SocialLogin/SocialLogin"
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import Loading from '../Common/Loading/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const SignIn = () => {
 
     const navigate = useNavigate();    
@@ -22,18 +25,24 @@ const SignIn = () => {
         signInWithEmailAndPassword(email, password)
     }
     
+   
+    let errorMsg;
     if (error) {
-        return (
+        errorMsg =
             <div>
-                <p>Error: {error.message}</p>
+                <p className='text-danger'>Error: {error.message}</p>
             </div>
-        );
+        
     }
+
     if (loading) {
-        return <p>Loading...</p>;
+        
+        return <Loading></Loading>
+        
     }
     if (user) {
         navigate  (from, {replace: true});
+        
     }
     const handleSignUp = () => {
         navigate('/signup')
@@ -62,6 +71,7 @@ const SignIn = () => {
                         Forget Password<Button variant="link text-decoration-none">Click Here</Button> Not a member<Button onClick={handleSignUp} variant="link text-decoration-none">Sign Up Here</Button>
                     </Form.Label>
                 </Form.Group>
+                <p>{errorMsg}</p>
                 <hr />
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>
@@ -70,6 +80,7 @@ const SignIn = () => {
                         <SocialLogin></SocialLogin>
                     </Form.Label>
                 </Form.Group>
+                <ToastContainer></ToastContainer>
             </Form>
         </div>
     );

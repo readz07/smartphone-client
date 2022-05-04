@@ -2,25 +2,29 @@ import React, { useState } from 'react';
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import useProductsData from '../../Hooks/useProductsData';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AddProduct = () => {
     const { register, handleSubmit } = useForm();
     const [products, setProducts] = useProductsData([])
-    const onSubmit = data => {
+    const onSubmit = (data, event) => {
         console.log(data)
         const url = "http://localhost:5000/products"
         fetch(url, {
             method: "POST",
-            headers:{
-                "content-type":"application/json"
+            headers: {
+                "content-type": "application/json"
             },
-            body: JSON.stringify(data)      
+            body: JSON.stringify(data)
         })
-        .then(res=>res.json())
-        .then(result=>setProducts(result))
+            .then(res => res.json())
+            .then(result => setProducts(result))
+            toast('Product has been added')
+            event.target.reset()
     };
-    
 
-   
+
+
 
     return (
         <div className='col-md-6 mx-auto'>
@@ -49,7 +53,7 @@ const AddProduct = () => {
                             </Form.Group>
                             <Form.Group as={Col} md="3" controlId="validationCustom02">
                                 <Form.Label>Product Name</Form.Label>
-                                <Form.Control                                    
+                                <Form.Control
                                     type="text"
                                     placeholder="Product Name"
                                     {...register("name", { required: true })}
@@ -76,7 +80,7 @@ const AddProduct = () => {
                         <Row className="mb-3">
                             <Form.Group as={Col} md="12" controlId="validationCustom03">
                                 <Form.Label>Image URL</Form.Label>
-                                <Form.Control type="url" placeholder="Image URL" 
+                                <Form.Control type="url" placeholder="Image URL"
                                     {...register("image", { required: true })}
                                 />
                                 <Form.Control.Feedback type="invalid">
@@ -84,20 +88,22 @@ const AddProduct = () => {
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
-                            
+
                         <Row className="mb-3">
                             <Form.Group as={Col} md="12" className="mb-3" controlId="exampleForm.ControlTextarea1">
                                 <Form.Label>Description</Form.Label>
-                                <Form.Control as="textarea" rows={5} 
+                                <Form.Control as="textarea" rows={5}
                                     {...register("description", { required: true })}
                                 />
                             </Form.Group>
                         </Row>
-                        
+
                         <Button type="submit">Submit form</Button>
                     </Form>
                 </Row>
+                <ToastContainer />
             </Container>
+
         </div>
     );
 };

@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const ProductDetail = () => {
 
     const { productId } = useParams()
@@ -20,11 +24,15 @@ const ProductDetail = () => {
         navigate('/manageinventory')
     }
 
+    //adding product quantity
     const handleProductStock = (event) => {
         event.preventDefault();
         const addQuantity = parseInt(event.target.quantity.value)
+        if(addQuantity > 0 || addQuantity == null){
+            
+        
         const newQuantity = addQuantity + quantity
-        console.log(newQuantity)
+        
         const url = `http://localhost:5000/products/${productId}`
         fetch(url,{
             method : 'PUT',
@@ -35,7 +43,33 @@ const ProductDetail = () => {
         })
         .then(res=>res.json())
         .then(data=>setNewQuantity(data))
-        alert('Quantity Updated')
+        toast('Quantity Updated')
+        event.target.reset()
+        }
+    }
+
+    //Deliver product stock manage
+    const handleDeliverItem = (event) => {
+        event.preventDefault();
+        
+        if(quantity > 0){
+            
+        
+        const deliveryItem = quantity - 1
+        
+        const url = `http://localhost:5000/products/${productId}`
+        fetch(url,{
+            method : 'PUT',
+            headers: {
+                "content-type" : "application/json"
+            },
+        body: JSON.stringify({quantity:deliveryItem})
+        })
+        .then(res=>res.json())
+        .then(data=>setNewQuantity(data))
+       
+        event.target.reset()
+        }
     }
     return (
         <div>
@@ -57,16 +91,16 @@ const ProductDetail = () => {
                                 <Card.Text>{description}</Card.Text>
                                 <Card.Text>Price: ${price}</Card.Text>
                                 <Card.Text>Stock Quantity: {quantity}</Card.Text>
+                                {
+                                    quantity===0 && <Card.Text><p>Sold</p></Card.Text>
+                                    
+                                }
 
 
                             </Card.Body>
                             <Card.Footer >
-                                <Form>
-                                    <Form.Group md={3} className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Delivery</Form.Label>
-                                        <Form.Control type="email" placeholder="0" />
-                                        
-                                    </Form.Group>
+                                <Form onSubmit={handleDeliverItem}>
+                                    
                                     <Button variant="primary" type="submit">
                                         Deliver Item
                                     </Button>
@@ -84,6 +118,7 @@ const ProductDetail = () => {
                     </Col>
 
                 </Row>
+                <ToastContainer></ToastContainer>
             </Container>
         </div>
     );

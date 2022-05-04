@@ -6,6 +6,7 @@ import TwitterIcon from '../../images/sigin-icons/twitter.ico'
 import { useSignInWithGoogle, useSignInWithFacebook } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../Common/Loading/Loading';
 const SocialLogin = () => {
     const navigate = useNavigate();
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -19,7 +20,7 @@ const SocialLogin = () => {
         
       }
       if (loading || loading1) {
-        return <p>Loading...</p>;
+        return <Loading></Loading>
       }
       if (user || user1) {
         return (
