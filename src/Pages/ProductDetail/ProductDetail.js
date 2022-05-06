@@ -67,7 +67,7 @@ const ProductDetail = () => {
         })
         .then(res=>res.json())
         .then(data=>setNewQuantity(data))
-       
+        toast('Product has been delivered')
         event.target.reset()
         }
     }

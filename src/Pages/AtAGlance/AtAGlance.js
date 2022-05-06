@@ -31,7 +31,9 @@ const AtAGlance = () => {
                     <Card className='bg-warning text-white'>
                         <Card.Header>Header</Card.Header>
                         <Card.Body>
-                            <Card.Title>Card Title </Card.Title>
+                            <Card.Title>
+                                {products.map(product=> <div>{product.name}</div>)}
+                            </Card.Title>
                             <Card.Text>
                                 Some quick example text to build on the card title and make up the
                                 bulk of the card's content.

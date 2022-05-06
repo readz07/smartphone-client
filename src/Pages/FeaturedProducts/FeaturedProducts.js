@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, CardGroup, Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import useProductsData from '../../Hooks/useProductsData';
 import SingleProduct from '../SingleProduct/SingleProduct';
 
@@ -10,7 +11,7 @@ const FeaturedProducts = () => {
             <Container className='my-5'>
                 <Row>
                     <Col><h4>Featured Products</h4></Col>
-                    <Col><Button className="btn-primary btn-md pe-5 ps-5 float-end"> Manage Inventories</Button></Col>
+                    <Col><Button as={Link} to='/manageinventory' className="btn-primary btn-md pe-5 ps-5 float-end"> Manage Inventories</Button></Col>
                 </Row>
                 <Row>
                     <Col><hr /></Col>

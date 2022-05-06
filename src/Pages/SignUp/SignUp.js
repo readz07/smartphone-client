@@ -1,13 +1,16 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import Loading from '../Common/Loading/Loading';
+import axios from 'axios';
 
 const SignUp = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate();    
+    let location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const handleSignIn = () => {
         navigate('/signin')
     }
@@ -19,12 +22,15 @@ const SignUp = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification:true});
 
-    const handleCreateUser = event =>{
+    const handleCreateUser = async event =>{
         event.preventDefault();
         const email = event.target.email.value
         const password = event.target.password.value;
         console.log(email, password)
-        createUserWithEmailAndPassword(email, password)
+        createUserWithEmailAndPassword(email, password);
+        const {data} =await axios.post("http://localhost:5000/signin", {email});
+        localStorage.setItem('accessToken', data)
+        navigate  (from, {replace: true});
     }
     if (error) {
         return (

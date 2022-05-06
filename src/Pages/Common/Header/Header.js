@@ -23,23 +23,25 @@ const Header = () => {
                             navbarScroll
                         >
                             <Nav.Link as={Link} to="/home">Home</Nav.Link>
-                            <Nav.Link as={Link} to="/manageinventory">Manage Inventory</Nav.Link>
-                            <Nav.Link as={Link} to="/addproduct">Add Product</Nav.Link>
+                            {
+                                user &&
+                                <>
+                                    <Nav.Link as={Link} to="/manageinventory">Manage Inventory</Nav.Link>
+                                    <Nav.Link as={Link} to="/addproduct">Add Product</Nav.Link>
+                                    <Nav.Link as={Link} to="/myproducts">My Products</Nav.Link>
+                                </>
+                            }
                             <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
+                            <Nav.Link as={Link} to="/contactus">Contact Us</Nav.Link>
                             
                         </Nav>
                         <Form className="d-flex">
-                            <FormControl
-                                type="search"
-                                placeholder="Search"
-                                className="me-2"
-                                aria-label="Search"
-                            />
-                            <Button variant="outline-success">Search</Button>
-                        </Form>
                         {user? <Button onClick={handleSignOut} className="btn btn-warning ps-2 pe-2 text-white mx-2">Sign Out</Button>:
-                            <Nav.Link as={Link} to="/signin">Sign In</Nav.Link>
+                            <Button className='me-2' as={Link} to="/signin">Sign In</Button> 
                         }
+                        {!user&& <Button as={Link} to="/signup">Sign Up</Button>}
+                        </Form>
+                        
                         
                     </Navbar.Collapse>
                 </Container>

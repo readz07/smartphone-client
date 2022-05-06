@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const ManageSingleProduct = ({product}) => {
     const [products, setProducts] = useProductsData([])
     const{_id, name, description, image, price, quantity, supplier}=product
-    const handleDeleteProduct = id =>{
+    const handleDeleteProduct = (id, event) =>{
         const proceed = window.confirm('Are you sure to delete');
         if(proceed){
             const url = `http://localhost:5000/products/${id}`
@@ -16,6 +16,7 @@ const ManageSingleProduct = ({product}) => {
             .then(res=>res.json())
             .then(data=>setProducts(data))
             toast("Product has been deleted")
+            event.target.reset()
         }
     }
     return (

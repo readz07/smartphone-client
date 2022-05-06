@@ -1,30 +1,29 @@
 import React from 'react';
 import {Button, ButtonGroup } from 'react-bootstrap';
 import GoogleIcon from '../../images/sigin-icons/google.ico'
-import FacebookIcon from '../../images/sigin-icons/facebook.ico'
-import TwitterIcon from '../../images/sigin-icons/twitter.ico'
-import { useSignInWithGoogle, useSignInWithFacebook } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle} from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Loading from '../Common/Loading/Loading';
 const SocialLogin = () => {
     const navigate = useNavigate();
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-    const [signInWithFacebook, user1, loading1, error1] = useSignInWithFacebook(auth);
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/';
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth , {sendEmailVerification:true});
     let errorMsg;
-    if (error || error1) {
+    if (error) {
         errorMsg=
           <div>
             <p className='text-danger'>Error: {error.message}</p>
           </div>
         
       }
-      if (loading || loading1) {
+      if (loading) {
         return <Loading></Loading>
       }
-      if (user || user1) {
+      if (user) {
         return (
-          navigate('/')
+          navigate(from,{location:true})
         );
       }
     return (
@@ -34,8 +33,7 @@ const SocialLogin = () => {
             <ButtonGroup size="md" className="mb-2">
                 
                 <Button onClick={() => signInWithGoogle()} variant='danger'><img src={GoogleIcon} alt="google icon" style={{ height: '24px' }} /> Google</Button>
-                <Button onClick={() => signInWithFacebook()} variant='primary'><img src={FacebookIcon} alt="facebook icon" style={{ height: '24px' }} /> Facebook</Button>
-                <Button variant="info text-white"><img src={TwitterIcon} alt="twitter icon" style={{ height: '24px' }} /> Twitter</Button>
+                
             </ButtonGroup>
         </div>
     );

@@ -10,6 +10,8 @@ import SignIn from './Pages/SignIn/SignIn';
 import NotFound from './Pages/NotFound/NotFound';
 import AddProduct from './Pages/AddProduct/AddProduct';
 import RequireAuth from './RequireAuth/RequireAuth';
+import MyProducts from './Pages/MyProducts/MyProducts';
+import ContactUs from './Pages/ContactUs/ContactUs';
 
 function App() {
   return (
@@ -34,7 +36,13 @@ function App() {
             <ProductDetail></ProductDetail>
           </RequireAuth>
         } />
+        <Route path="myproducts" element={
+          <RequireAuth>
+            <MyProducts></MyProducts>
+          </RequireAuth>
+        } />
         <Route path="/blog" element={<Blog></Blog>} />
+        <Route path="/contactus" element={<ContactUs></ContactUs>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
         <Route path="/signin" element={<SignIn></SignIn>} />
         <Route path="*" element={<NotFound></NotFound>} />

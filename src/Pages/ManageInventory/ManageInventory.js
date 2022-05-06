@@ -1,15 +1,34 @@
-import React from 'react';
-import {Button, CardGroup, Col, Container, Row } from 'react-bootstrap';
-import useProductsData from '../../Hooks/useProductsData';
+import React, { useState, useEffect } from 'react';
+import { Button, CardGroup, Col, Container, Row } from 'react-bootstrap';
 import ManageSingleProduct from '../ManageSingleProduct/ManageSingleProduct';
 import { useNavigate } from 'react-router-dom';
 const ManageInventory = () => {
+    const [pageNumbers, setPageNumbers] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const[size, setSize] = useState(9)
     const navigate = useNavigate()
-    const [products] = useProductsData([])
-    const navigateToAddItem= ()=>{
+   
+    const navigateToAddItem = () => {
         navigate('/addproduct')
     }
-    
+
+    const [products, setProducts] = useState([])
+    useEffect(() => {
+      fetch(`http://localhost:5000/products?pagenumber=${currentPage}&size=${size}`)
+      .then(res=>res.json())
+      .then(data=>setProducts(data))
+    }, [currentPage, size])
+
+    useEffect(() => {
+        fetch('http://localhost:5000/productscount')
+            .then(res => res.json())
+            .then(data => {
+                const count = data.count;
+                const pages = Math.ceil(count / 10);
+                setPageNumbers(pages)
+            })
+    }, [])
+
     return (
         <div>
             <Container className='my-5'>
@@ -26,7 +45,15 @@ const ManageInventory = () => {
                         {products.map(product => <ManageSingleProduct product={product} key={product._id}></ManageSingleProduct>)}
                     </CardGroup>
                 </Row>
+                <div className='mt-5'>
+                    {  
+                        [...Array(pageNumbers).keys()]
+                            .map(pageNumber => <Button key={pageNumber} className= {currentPage===pageNumber? 'active m-2':'m-2'} onClick={()=>setCurrentPage(pageNumber)} >{pageNumber + 1}</Button>)
+
+                    }
+                </div>
             </Container>
+
         </div>
     );
 };

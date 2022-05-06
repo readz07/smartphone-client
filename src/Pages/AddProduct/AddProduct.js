@@ -1,26 +1,39 @@
-import React, { useState } from 'react';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init'
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
-import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 import useProductsData from '../../Hooks/useProductsData';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
 const AddProduct = () => {
-    const { register, handleSubmit } = useForm();
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate()
+    const navigateToInventory = () => {
+        navigate('/manageinventory')
+    }
     const [products, setProducts] = useProductsData([])
-    const onSubmit = (data, event) => {
-        console.log(data)
-        const url = "http://localhost:5000/products"
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(result => setProducts(result))
-            toast('Product has been added')
-            event.target.reset()
+    const handleAddingProduct = event => {
+        event.preventDefault();
+        const AddProduct = {
+            email: user.email,
+            name: event.target.name.value,
+            supplier: event.target.supplier.value,
+            image: event.target.image.value,
+            description: event.target.description.value,
+            price: event.target.price.value,
+            quantity: event.target.quantity.value,
+        }
+        axios.post('http://localhost:5000/products', AddProduct)
+            .then(response => {
+                const { data } = response;
+                if (data.insertedId) {
+                    toast('Product has been added')
+                    event.target.reset()
+                }
+            })
+
+
     };
 
 
@@ -31,7 +44,7 @@ const AddProduct = () => {
             <Container className='my-5'>
                 <Row>
                     <Col><h4>Add A NEW PRODUCT HERE</h4></Col>
-                    <Col><Button className="btn-primary btn-md pe-5 ps-5 float-end">OR Manage Inventories</Button></Col>
+                    <Col><Button className="btn-primary btn-md pe-5 ps-5 float-end" onClick={navigateToInventory}>All Products</Button></Col>
 
                 </Row>
                 <Row>
@@ -39,71 +52,82 @@ const AddProduct = () => {
 
                 </Row>
                 <Row>
-                    <Form onSubmit={handleSubmit(onSubmit)}>
+                    <Form onSubmit={handleAddingProduct}>
                         <Row className="mb-3">
-                            <Form.Group as={Col} md="3" controlId="validationCustom01">
+                            <Form.Group as={Col} md="12">
+
+                                <Form.Control type="email" name={user.email} readOnly disabled
+                                    value={user.email}
+                                />
+
+                            </Form.Group>
+                        </Row>
+                        <Row className="mb-3">
+                            <Form.Group as={Col} md="3" >
                                 <Form.Label>Supplier Name</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Supplier"
-                                    {...register("supplier", { required: true })}
+                                    name='supplier'
 
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+
                             </Form.Group>
-                            <Form.Group as={Col} md="3" controlId="validationCustom02">
+                            <Form.Group as={Col} md="3" >
                                 <Form.Label>Product Name</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Product Name"
-                                    {...register("name", { required: true })}
+                                    name='name'
+                                    required
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+
                             </Form.Group>
-                            <Form.Group as={Col} md="3" controlId="validationCustom03">
+                            <Form.Group as={Col} md="3">
                                 <Form.Label>Quantity</Form.Label>
                                 <Form.Control
                                     type="number"
                                     placeholder="Quantity"
-                                    {...register("quantity", { required: true })}
+                                    name='quantity'
+                                    required
                                 />
                             </Form.Group>
-                            <Form.Group as={Col} md="3" controlId="validationCustom04">
+                            <Form.Group as={Col} md="3">
                                 <Form.Label>Price</Form.Label>
                                 <Form.Control
                                     type="number"
                                     placeholder="Price"
-                                    {...register("price", { required: true })}
+                                    name='price'
+                                    required
                                 />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
-                            <Form.Group as={Col} md="12" controlId="validationCustom03">
+                            <Form.Group as={Col} md="12">
                                 <Form.Label>Image URL</Form.Label>
                                 <Form.Control type="url" placeholder="Image URL"
-                                    {...register("image", { required: true })}
+                                    name='image'
+                                    required
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    Please provide a valid image URL.
-                                </Form.Control.Feedback>
+
                             </Form.Group>
                         </Row>
 
                         <Row className="mb-3">
-                            <Form.Group as={Col} md="12" className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Group as={Col} md="12" className="mb-3" >
                                 <Form.Label>Description</Form.Label>
                                 <Form.Control as="textarea" rows={5}
-                                    {...register("description", { required: true })}
+                                    name="description" type="text-area"
+                                    required
                                 />
                             </Form.Group>
                         </Row>
 
                         <Button type="submit">Submit form</Button>
                     </Form>
+                    <ToastContainer></ToastContainer>
                 </Row>
-                <ToastContainer />
             </Container>
-
         </div>
     );
 };
