@@ -3,26 +3,28 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 import useProductsData from '../../Hooks/useProductsData';
 
 const AtAGlance = () => {
-    const [products]=useProductsData([])
-    
+    const [products] = useProductsData()
+
+    let uniqIds = {};
+    let filtered = products.filter(obj => !uniqIds[obj.supplier] && (uniqIds[obj.supplier] = true));
+    console.log(filtered)
     return (
         <Container>
-            
+
             <Row>
                 <Col><h4>At A Glance</h4></Col>
             </Row>
-            <Row>                
-                <Col><hr/></Col>
+            <Row>
+                <Col><hr /></Col>
             </Row>
             <Row>
                 <Col>
                     <Card className='bg-primary text-white'>
                         <Card.Header>Product Data</Card.Header>
                         <Card.Body>
-                            <Card.Title>Total Products : {products.length}</Card.Title>
+                            <Card.Title>Total Models : {products.length}</Card.Title>
                             <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
+                               Total Entries From Sellers statistics here
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -32,7 +34,7 @@ const AtAGlance = () => {
                         <Card.Header>Header</Card.Header>
                         <Card.Body>
                             <Card.Title>
-                                {products.map(product=> <div>{product.name}</div>)}
+                                   
                             </Card.Title>
                             <Card.Text>
                                 Some quick example text to build on the card title and make up the

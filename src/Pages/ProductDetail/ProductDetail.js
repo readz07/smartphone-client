@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useProductsData from '../../Hooks/useProductsData';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const ProductDetail = () => {
 
     const { productId } = useParams()
-    const [product, setProduct] = useState({})
+    const [product, setProduct] = useProductsData()
     const [newQuantity, setNewQuantity] = useState(0)
 
     useEffect(() => {
@@ -44,7 +45,6 @@ const ProductDetail = () => {
         .then(res=>res.json())
         .then(data=>setNewQuantity(data))
         toast('Quantity Updated')
-        event.target.reset()
         }
     }
 
@@ -92,7 +92,7 @@ const ProductDetail = () => {
                                 <Card.Text>Price: ${price}</Card.Text>
                                 <Card.Text>Stock Quantity: {quantity}</Card.Text>
                                 {
-                                    quantity===0 && <Card.Text><p>Sold</p></Card.Text>
+                                    quantity===0 && <Card.Text><Button className='bg-danger ps-5 pe-5 border-0'>Sold</Button></Card.Text>
                                     
                                 }
 

@@ -5,11 +5,13 @@ import { useSignInWithGoogle} from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Loading from '../Common/Loading/Loading';
+import useToken from '../../Hooks/useToken';
 const SocialLogin = () => {
     const navigate = useNavigate();
     const location = useLocation()
     const from = location.state?.from?.pathname || '/';
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth , {sendEmailVerification:true});
+    const [token] = useToken(user);
     let errorMsg;
     if (error) {
         errorMsg=
@@ -21,7 +23,7 @@ const SocialLogin = () => {
       if (loading) {
         return <Loading></Loading>
       }
-      if (user) {
+      if (token) {
         return (
           navigate(from,{location:true})
         );
@@ -32,7 +34,7 @@ const SocialLogin = () => {
         
             <ButtonGroup size="md" className="mb-2">
                 
-                <Button onClick={() => signInWithGoogle()} variant='danger'><img src={GoogleIcon} alt="google icon" style={{ height: '24px' }} /> Google</Button>
+            <Button onClick={() => signInWithGoogle()} variant='danger'><img src={GoogleIcon} alt="google icon" style={{ height: '24px' }} /> Google</Button>
                 
             </ButtonGroup>
         </div>

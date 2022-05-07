@@ -4,7 +4,7 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, 
 import useProductsData from '../../Hooks/useProductsData';
 
 const Chart = () => {
-    const [products] = useProductsData([])
+    const [products] = useProductsData()
     
     return (
 
@@ -19,7 +19,7 @@ const Chart = () => {
             </Row>
             <Row>
                 <Col>
-                    <BarChart width={530} height={250} data={products}>
+                    <BarChart width={330} height={250} data={products}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey={"supplier"} />
                         <YAxis />
@@ -30,7 +30,7 @@ const Chart = () => {
                     </BarChart>
                 </Col>
                 <Col>
-                    <AreaChart width={530} height={250} data={products}
+                    <AreaChart width={330} height={250} data={products}
                         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

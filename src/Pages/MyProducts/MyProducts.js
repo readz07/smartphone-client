@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
-import { Button, CardGroup, Col, Container, Row } from 'react-bootstrap';
+import { Button, CardGroup, Col, Container, Row,} from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import MyProduct from '../MyProduct/MyProduct';
 
 const MyProducts = () => {
-
+    
     const [user] = useAuthState(auth)
     const [myproducts, setMyProducts] = useState([]);
     const navigate = useNavigate()
@@ -34,6 +34,7 @@ const MyProducts = () => {
         }
         getMyProducts()
     },[user])
+    
     return (
         <Container className='my-5'>
                 <Row>
@@ -46,9 +47,10 @@ const MyProducts = () => {
                 </Row>
                 <Row>
                     <CardGroup className='gap-5'>
-                        {myproducts.map(myproduct => <MyProduct myproduct={myproduct} key={myproduct._id}></MyProduct>)}
+                        {myproducts.map(myproduct => <MyProduct myproduct={myproduct} key={myproduct._id} ></MyProduct>)}
                     </CardGroup>
                 </Row>
+                
             </Container>
     );
 };

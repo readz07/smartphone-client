@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
 import useProductsData from '../../Hooks/useProductsData';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 const ManageSingleProduct = ({product}) => {
     const [products, setProducts] = useProductsData([])
     const{_id, name, description, image, price, quantity, supplier}=product
-    const handleDeleteProduct = (id, event) =>{
+    
+    
+    const handleDeleteProduct = (id) =>{
         const proceed = window.confirm('Are you sure to delete');
         if(proceed){
             const url = `http://localhost:5000/products/${id}`
@@ -14,9 +14,13 @@ const ManageSingleProduct = ({product}) => {
             {method:"DELETE"}
             )
             .then(res=>res.json())
-            .then(data=>setProducts(data))
-            toast("Product has been deleted")
-            event.target.reset()
+            .then(data=>{
+                if(data.deletedCount>0){                   
+                    const remaining = products.filter(product=>product._id !== id)
+                    setProducts(remaining)
+                }
+            })
+                  
         }
     }
     return (
@@ -33,7 +37,7 @@ const ManageSingleProduct = ({product}) => {
                 <Card.Footer className="d-grid">
                     <Button onClick={()=>handleDeleteProduct(_id)} className='btn-danger btn-md ps-5 pe-5'>Delete Item</Button>
                 </Card.Footer>
-                <ToastContainer></ToastContainer>
+                
             </Card>
         </Col>
     );

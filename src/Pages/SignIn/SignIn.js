@@ -6,6 +6,7 @@ import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../Common/Loading/Loading';
 import axios from 'axios';
+import useToken from '../../Hooks/useToken';
 
 const SignIn = () => {
 
@@ -23,11 +24,9 @@ const SignIn = () => {
         const email = event.target.email.value;
         const password =event.target.password.value;
         await signInWithEmailAndPassword(email, password);
-        const {data} =await axios.post("http://localhost:5000/signin", {email});
-        localStorage.setItem('accessToken', data)
-        navigate  (from, {replace: true});
     }
     
+    const [token] = useToken(user);
    
     let errorMsg;
     if (error) {
@@ -43,8 +42,8 @@ const SignIn = () => {
         return <Loading></Loading>
         
     }
-    if (user) {
-        // navigate  (from, {replace: true});
+    if (token) {
+        navigate  (from, {replace: true});
         
     }
     const handleSignUp = () => {

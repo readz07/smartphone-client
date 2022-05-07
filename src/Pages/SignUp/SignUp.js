@@ -6,6 +6,7 @@ import auth from '../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import Loading from '../Common/Loading/Loading';
 import axios from 'axios';
+import useToken from '../../Hooks/useToken';
 
 const SignUp = () => {
     const navigate = useNavigate();    
@@ -28,10 +29,8 @@ const SignUp = () => {
         const password = event.target.password.value;
         console.log(email, password)
         createUserWithEmailAndPassword(email, password);
-        const {data} =await axios.post("http://localhost:5000/signin", {email});
-        localStorage.setItem('accessToken', data)
-        navigate  (from, {replace: true});
     }
+    const [token] = useToken(user)
     if (error) {
         return (
             <div>
@@ -42,12 +41,10 @@ const SignUp = () => {
     if (loading) {
         return <Loading></Loading>
     }
-    if (user) {
-        return (
-            <div>
-                <p>Registered User: {user.email}</p>
-            </div>
-        );
+    if (token) {
+        
+            navigate  (from, {replace: true});
+        
     }
 
     return (
