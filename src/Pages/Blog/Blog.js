@@ -7,10 +7,7 @@ const Blog = () => {
     return (
         <div className='col-md-6 mx-auto container mt-5'>
             <h1>Questions and Answers</h1>
-            <h4>StackOverflow Question Link</h4>
-            <h4>
-                https://stackoverflow.com/q/72126616/3506861?stw=2
-            </h4>
+            
 
             <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">

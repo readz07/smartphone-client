@@ -13,7 +13,7 @@ const StockOut = ({product}) => {
     return (
         
             <Col md={3} className="mx-auto">
-            <Card className='auto border border-grey border-1 h-100'>
+            <Card className='auto border border-grey border-1 h-100 mb-3'>
                 <Card.Img width='350' variant="top" src={image} alt="product-image" />
                 <Card.Header>{supplier}</Card.Header>
                 <Card.Body>

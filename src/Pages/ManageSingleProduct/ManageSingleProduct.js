@@ -14,7 +14,7 @@ const ManageSingleProduct = ({ product, children }) => {
 
     return (
         <Col md={3} className="mx-auto">
-            <Card className='auto border border-grey border-1 h-100' style={{ width: '18rem' }}>
+            <Card className='auto border border-grey border-1 h-100'>
                 <Card.Img className='w-100' variant="top" src={image} alt="product-image" />
                 <Card.Header>{supplier}</Card.Header>
                 <Card.Body>
