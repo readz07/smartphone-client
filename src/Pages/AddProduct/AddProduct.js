@@ -12,7 +12,7 @@ const AddProduct = () => {
     const navigateToInventory = () => {
         navigate('/manageinventory')
     }
-    const [products, setProducts] = useProductsData()
+    
     const handleAddingProduct = event => {
         event.preventDefault();
         const AddProduct = {

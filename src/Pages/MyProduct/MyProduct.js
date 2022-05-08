@@ -20,7 +20,10 @@ const MyProduct = ({ myProduct, children}) => {
                     <Card.Title>{name}</Card.Title>
                     <Card.Text>{description.slice(0, 50)}</Card.Text>
                     <Card.Text>Price: ${price}</Card.Text>
-                    <Card.Text>Stock Quantity: {quantity}</Card.Text>
+                    {
+                                    quantity === 0 ? <Card.Text ><Button readonly disabled className='bg-danger ps-5 pe-5 border-0'>Sold</Button> </Card.Text>: <Card.Text>Stock Quantity: {quantity}</Card.Text>
+
+                                }
                 </Card.Body>
                 <Card.Footer className="d-grid">
                     <Button onClick={() => handleProductStock(_id)} className='btn-md ps-5 pe-5 fluid'>Update Inventory</Button>

@@ -7,6 +7,7 @@ const StockOut = ({product}) => {
     const navigate = useNavigate()
     const { _id, name, description, image, price, quantity, supplier } = product
     const handleProductStock = (id) => {
+        localStorage.setItem(id, parseInt(quantity))
         navigate(`/productdetail/${id}`)
     }
     return (

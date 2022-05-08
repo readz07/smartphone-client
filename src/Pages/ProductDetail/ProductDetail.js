@@ -51,7 +51,7 @@ const ProductDetail = () => {
         const updatedQuantity = { quantity: localId - 1 };
         const url = `https://blooming-oasis-75068.herokuapp.com/products/${productId}`;
         axios.put(url, updatedQuantity).then((response) => {
-            toast("Product has been delivered!");
+            
         });
     };
 
@@ -76,7 +76,7 @@ const ProductDetail = () => {
                                 <Card.Text>Price: ${price}</Card.Text>
                                 
                                 {
-                                    newQuantity === 0 ? <Card.Text><Button className='bg-danger ps-5 pe-5 border-0'>Sold</Button> </Card.Text>: <Card.Text>Stock Quantity: {newQuantity}</Card.Text>
+                                    newQuantity === 0 ? <Card.Text ><Button readonly disabled className='bg-danger ps-5 pe-5 border-0'>Sold</Button> </Card.Text>: <Card.Text>Stock Quantity: {newQuantity}</Card.Text>
 
                                 }
 
