@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Welcome to my Inventory Mgt Project!
 
 It was an inventory mgt project [Create My Own Inventory Mgt Poject](https://github.com/facebook/create-react-app).
 

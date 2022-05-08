@@ -30,7 +30,13 @@ const ProductDetail = () => {
     const handleProductStock = (event) => {
         event.preventDefault();
         const productQuantity = parseInt(event.target.quantity.value);
-        localStorage.setItem(product._id, productQuantity + localId);
+        if(productQuantity>=0){
+            localStorage.setItem(product._id, productQuantity + localId);
+        } else{
+            alert('Please enter a valid number')
+            return
+        }
+        
         setNewQuantity(productQuantity + localId);
         const updateProductQuantity = { quantity: productQuantity + localId };
         const url = `https://blooming-oasis-75068.herokuapp.com/products/${productId}`
