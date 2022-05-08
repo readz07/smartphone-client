@@ -8,6 +8,7 @@ const MyProduct = ({ myProduct, children}) => {
     const { _id, name, description, image, price, quantity, supplier } = myProduct
     
     const handleProductStock = (id) => {
+        localStorage.setItem(id, parseInt(quantity)) 
         navigate(`/productdetail/${id}`)
     }
    

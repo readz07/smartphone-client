@@ -21,7 +21,7 @@ const SingleProduct = ({ product }) => {
                     <Card.Text>Price: ${price}</Card.Text>
                     <Card.Text>Stock Quantity: {quantity}</Card.Text>
                     {
-                        quantity === 0 && <Card.Text><Button className='bg-danger ps-5 pe-5 border-0'>Sold</Button></Card.Text>
+                        quantity === 0 && <Card.Text><Button disabled readonly className='bg-danger ps-5 pe-5 border-0'>Sold</Button></Card.Text>
 
                     }
                 </Card.Body>
