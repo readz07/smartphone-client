@@ -1,11 +1,25 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It was an inventory mgt project [Create My Own Inventory Mgt Poject](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Project wings
 
-In the project directory, you can run:
-
+In the project I have developed both sides client and server site. Here are some hightlights
+1. Client Side
+    - HTML5
+    - Bootstrap CSS
+    - React
+    - React Router
+    - Firebase
+    - Env
+    
+2. Server Site
+    - Node Js
+    - Express Js
+    - Cors
+    - MongoDB
+    - Local Env
+    - HeroKu
 ### `npm start`
 
 Runs the app in the development mode.\
