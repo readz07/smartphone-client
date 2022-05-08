@@ -3,6 +3,7 @@ import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
+    
     return (
         <div className='bg-light mt-5 pt-5 pb-5'>
         <Container>
@@ -26,7 +27,7 @@ const Footer = () => {
                 <Col>
                     <ListGroup>
                         <ListGroup.Item className='border-0'><h5>General Info</h5></ListGroup.Item>                        
-                        <ListGroup.Item className='border-0'><span>Copyright &copy;</span></ListGroup.Item>                       
+                        <ListGroup.Item className='border-0'><span>Copyright &copy;</span>2022</ListGroup.Item>                       
                         <ListGroup.Item className='border-0'>Privacy Policy</ListGroup.Item>                       
                         <ListGroup.Item className='border-0'>Terms and Conditions</ListGroup.Item>                                            
                     </ListGroup>

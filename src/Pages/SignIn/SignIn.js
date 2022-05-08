@@ -67,7 +67,7 @@ const SignIn = () => {
                 </Button>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>
-                        Forget Password<Button variant="link text-decoration-none">Click Here</Button> Not a member<Button onClick={handleSignUp} variant="link text-decoration-none">Sign Up Here</Button>
+                        Not a member<Button onClick={handleSignUp} variant="link text-decoration-none">Sign Up Here</Button>
                     </Form.Label>
                 </Form.Group>
                 <p>{errorMsg}</p>

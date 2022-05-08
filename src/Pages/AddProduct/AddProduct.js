@@ -21,8 +21,8 @@ const AddProduct = () => {
             supplier: event.target.supplier.value,
             image: event.target.image.value,
             description: event.target.description.value,
-            price: event.target.price.value,
-            quantity: event.target.quantity.value,
+            price: parseInt(event.target.price.value),
+            quantity: parseInt(event.target.quantity.value),
         }
         axios.post('http://localhost:5000/products', AddProduct)
             .then(response => {
@@ -123,7 +123,7 @@ const AddProduct = () => {
                             </Form.Group>
                         </Row>
 
-                        <Button type="submit">Submit form</Button>
+                        <Button type="submit">Add My Product</Button>
                     </Form>
                     <ToastContainer></ToastContainer>
                 </Row>

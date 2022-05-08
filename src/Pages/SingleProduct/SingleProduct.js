@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 const SingleProduct = ({ product }) => {
     const navigate = useNavigate();
     const { _id, name, description, image, price, quantity, supplier } = product
-    const handleProductStock = (id) => {
 
-       
+    const handleProductDetail = (id) => {  
+        localStorage.setItem(id, parseInt(quantity))     
         navigate(`/productdetail/${id}`)
     }
     return (
@@ -26,7 +26,7 @@ const SingleProduct = ({ product }) => {
                     }
                 </Card.Body>
                 <Card.Footer className="d-grid">
-                    <Button onClick={() => handleProductStock(_id)} className='btn-md ps-5 pe-5 fluid'>Product Detail</Button>
+                    <Button onClick={() => handleProductDetail(_id)} className='btn-md ps-5 pe-5 fluid'>Update Inventory</Button>
                 </Card.Footer>
             </Card>
         </Col>

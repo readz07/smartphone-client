@@ -10,7 +10,7 @@ import MyProduct from '../MyProduct/MyProduct';
 const MyProducts = () => {
     
     const [user] = useAuthState(auth)
-    const [myproducts, setMyProducts] = useState([]);
+    const [myProducts, setMyProducts] = useState([]);
     const navigate = useNavigate()
     useEffect(()=>{        
         const getMyProducts = async() =>{
@@ -34,6 +34,25 @@ const MyProducts = () => {
         }
         getMyProducts()
     },[user])
+
+    //Delete button
+    const handleDeleteProduct = (id) =>{
+        const proceed = window.confirm('Are you sure to delete');
+        if(proceed){
+            const url = `http://localhost:5000/products/${id}`
+           fetch(url, {
+               method: 'DELETE'
+           })
+           .then(res => res.json())
+           .then(data=>{
+               if(data.deletedCount>0){                   
+                   const remaining = myProducts.filter(product=>product._id !== id)
+                   setMyProducts(remaining)
+               }
+           })
+               
+        }
+    }
     
     return (
         <Container className='my-5'>
@@ -47,7 +66,9 @@ const MyProducts = () => {
                 </Row>
                 <Row>
                     <CardGroup className='gap-5'>
-                        {myproducts.map(myproduct => <MyProduct myproduct={myproduct} key={myproduct._id} ></MyProduct>)}
+                        {myProducts.map(myProduct => <MyProduct myProduct={myProduct} key={myProduct._id} >
+                            <Button onClick={() => handleDeleteProduct(myProduct._id)} className='btn-md btn-danger ps-5 pe-5 fluid'>Delete</Button>
+                        </MyProduct>)}
                     </CardGroup>
                 </Row>
                 
