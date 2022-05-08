@@ -15,7 +15,7 @@ const MyProducts = () => {
     useEffect(()=>{        
         const getMyProducts = async() =>{
             const email = user.email
-            const url = `http://localhost:5000/productslist?email=${email}`
+            const url = `https://blooming-oasis-75068.herokuapp.com/productslist?email=${email}`
             try{
                 const {data} = await axios.get(url,{
                     headers:{
@@ -39,7 +39,7 @@ const MyProducts = () => {
     const handleDeleteProduct = (id) =>{
         const proceed = window.confirm('Are you sure to delete');
         if(proceed){
-            const url = `http://localhost:5000/products/${id}`
+            const url = `https://blooming-oasis-75068.herokuapp.com/products/${id}`
            fetch(url, {
                method: 'DELETE'
            })

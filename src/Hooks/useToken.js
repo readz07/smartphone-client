@@ -7,7 +7,7 @@ const useToken = (user) => {
         const getToken = async () => {
             const email = user?.user?.email
             if(email){
-                const { data } = await axios.post("http://localhost:5000/signin", { email });
+                const { data } = await axios.post("https://blooming-oasis-75068.herokuapp.com/signin", { email });
                 setToken(data)
                 localStorage.setItem('accessToken', data)
             }

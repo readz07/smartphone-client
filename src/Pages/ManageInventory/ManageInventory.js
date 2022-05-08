@@ -15,13 +15,13 @@ const ManageInventory = () => {
 
     const [products, setProducts] = useState([])
     useEffect(() => {
-      fetch(`http://localhost:5000/products?pagenumber=${currentPage}&size=${size}`)
+      fetch(`https://blooming-oasis-75068.herokuapp.com/products?pagenumber=${currentPage}&size=${size}`)
       .then(res=>res.json())
       .then(data=>setProducts(data))
     }, [currentPage, size])
 
     useEffect(() => {
-        fetch('http://localhost:5000/productscount')
+        fetch('https://blooming-oasis-75068.herokuapp.com/productscount')
             .then(res => res.json())
             .then(data => {
                 const count = data.count;
@@ -33,7 +33,7 @@ const ManageInventory = () => {
     const handleDeleteProduct = (id) =>{
         const proceed = window.confirm('Are you sure to delete');
         if(proceed){
-            const url = `http://localhost:5000/products/${id}`
+            const url = `https://blooming-oasis-75068.herokuapp.com/products/${id}`
             fetch(url, 
             {method:"DELETE"}
             )

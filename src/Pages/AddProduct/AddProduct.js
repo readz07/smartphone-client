@@ -24,7 +24,7 @@ const AddProduct = () => {
             price: parseInt(event.target.price.value),
             quantity: parseInt(event.target.quantity.value),
         }
-        axios.post('http://localhost:5000/products', AddProduct)
+        axios.post('https://blooming-oasis-75068.herokuapp.com/products', AddProduct)
             .then(response => {
                 const { data } = response;
                 if (data.insertedId) {

@@ -15,7 +15,7 @@ const ProductDetail = () => {
     const [newQuantity, setNewQuantity] = useState(localId)
 
     useEffect(() => {
-        const url = `http://localhost:5000/products/${productId}`
+        const url = `https://blooming-oasis-75068.herokuapp.com/products/${productId}`
         fetch(url)
             .then(res => res.json())
             .then(data => setProduct(data))
@@ -33,7 +33,7 @@ const ProductDetail = () => {
         localStorage.setItem(product._id, productQuantity + localId);
         setNewQuantity(productQuantity + localId);
         const updateProductQuantity = { quantity: productQuantity + localId };
-        const url = `http://localhost:5000/products/${productId}`
+        const url = `https://blooming-oasis-75068.herokuapp.com/products/${productId}`
         axios.put(url, updateProductQuantity).then((response) => {
             alert("Quantity Updated Successfully");
             event.target.reset();
@@ -49,7 +49,7 @@ const ProductDetail = () => {
             localStorage.setItem(product._id, newQuantity - 1);
         }
         const updatedQuantity = { quantity: localId - 1 };
-        const url = `http://localhost:5000/products/${productId}`;
+        const url = `https://blooming-oasis-75068.herokuapp.com/products/${productId}`;
         axios.put(url, updatedQuantity).then((response) => {
             toast("Product has been delivered!");
         });
